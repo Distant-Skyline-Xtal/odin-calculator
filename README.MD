@@ -1,0 +1,1 @@
+Simple calculator web page for the odin foundation course.
