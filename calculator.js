@@ -99,6 +99,12 @@ function createCalculator() {
         let operatorVal = Object.keys(operatorButtons).find(key => operatorButtons[key] === e.target);
         setOperation(operatorVal);
     })
+
+    let clearButton = createButton("50px", "50px", "C", operateButtonContainer);
+    operatorButtons["C"] = clearButton;
+    clearButton.addEventListener("click", (e) => {
+        clearDisplay();
+    })
 }
 
 let numberButtons = {};
@@ -114,6 +120,12 @@ let stage = 0;
 
 function displayResult() {
     calculatorDisplay.textContent = operate(numberFirst, operator, numberSecond);
+}
+
+function clearDisplay() {
+    calculatorDisplay.textContent = "";
+    numberFirst = operator = numberSecond = "";
+    stage = 0;
 }
 
 function setOperation(value) {
