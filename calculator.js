@@ -96,7 +96,8 @@ function createCalculator() {
     let equalsButton = createButton("50px", "50px", "=", operateButtonContainer);
     operatorButtons["="] = equalsButton;
     equalsButton.addEventListener("click", (e) => {
-        displayResult();
+        let operatorVal = Object.keys(operatorButtons).find(key => operatorButtons[key] === e.target);
+        setOperation(operatorVal);
     })
 }
 
@@ -129,7 +130,11 @@ function setOperation(value) {
             if (!isNaN(value) && !isNaN(parseFloat(value))) {
                 numberSecond += value;
             } else if (value == "=") {
-                
+                numberFirst = operate(numberFirst, operator, numberSecond);
+                operator = "";
+                numberSecond = "";
+                updateDisplay();
+                stage = 0;
             }
             break;
         case(2):
@@ -159,6 +164,7 @@ function operate(numberFirst, operator, numberSecond) {
             result = divide(+numberFirst, +numberSecond);
             break;
     }
+    result = Math.round((result + Number.EPSILON) * 100) / 100
     console.log(`operation ${numberFirst} ${operator} ${numberSecond} = ${result}`);
     return result;
 }
