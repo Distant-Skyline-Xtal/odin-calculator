@@ -142,6 +142,16 @@ function setOperation(value) {
             if (!isNaN(value) && !isNaN(parseFloat(value))) {
                 numberSecond += value;
             } else if (value == "=") {
+
+                if (operator == "/" && +numberSecond == 0) {
+                    calculatorDisplay.textContent = "DIVIDE BY 0 ERROR";
+                    stage = 0;
+                    numberFirst = "";
+                    operator = "";
+                    numberSecond = "";
+                    return;
+                }
+
                 numberFirst = operate(numberFirst, operator, numberSecond);
                 operator = "";
                 numberSecond = "";
